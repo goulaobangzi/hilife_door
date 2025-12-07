@@ -1,0 +1,40 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "HiLife 合生活门禁",
+        "description": "请输入您的 HiLife 账号信息。\n\nuserId 需要从 App 或 mitmproxy 抓包获取（首次配置需要，之后不会变化）。",
+        "data": {
+          "phone": "手机号",
+          "password": "密码",
+          "user_id": "用户ID (personId)"
+        }
+      },
+      "community": {
+        "title": "选择小区",
+        "description": "您绑定了 {community_count} 个小区，请选择要添加的小区。",
+        "data": {
+          "community_id": "小区"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接到 HiLife 服务器，请检查账号信息和网络",
+      "no_communities": "未找到绑定的小区，请确认 userId 是否正确",
+      "invalid_community": "无效的小区选择"
+    },
+    "abort": {
+      "already_configured": "该小区已经配置过了"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "HiLife 门禁设置",
+        "data": {
+          "scan_interval": "刷新间隔（秒）"
+        }
+      }
+    }
+  }
+}
