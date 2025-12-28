@@ -94,7 +94,7 @@ adb shell "su -c 'grep personId /data/data/cn.net.cyberway.hosponlife.main/share
 ```yaml
 service: lock.unlock
 target:
-  entity_id: lock.珠江愉景家园西区26_楼大堂门
+  entity_id: lock.大堂门
 ```
 
 ### 自动化示例
@@ -110,7 +110,7 @@ automation:
     action:
       - service: lock.unlock
         target:
-          entity_id: lock.珠江愉景家园西区26_楼大堂门
+          entity_id: lock.大堂门
 ```
 
 ## 注意事项
