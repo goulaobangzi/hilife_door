@@ -1,0 +1,40 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "HiLife Smart Door",
+        "description": "Enter your HiLife account information.\n\nuser_id can be left empty, the system will try to auto-detect it.",
+        "data": {
+          "phone": "Phone Number",
+          "password": "Password",
+          "user_id": "User ID (Optional)"
+        }
+      },
+      "community": {
+        "title": "Select Community",
+        "description": "You have {community_count} communities bound. Please select one to add.",
+        "data": {
+          "community_id": "Community"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to HiLife server. Please check your credentials and network.",
+      "no_communities": "No communities found. Please verify your userId is correct.",
+      "invalid_community": "Invalid community selection"
+    },
+    "abort": {
+      "already_configured": "This community is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "HiLife Door Settings",
+        "data": {
+          "scan_interval": "Refresh Interval (seconds)"
+        }
+      }
+    }
+  }
+}

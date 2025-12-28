@@ -1,0 +1,12 @@
+{
+  "domain": "hilife_door",
+  "name": "HiLife 合生活门禁",
+  "codeowners": ["@your-github-username"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/your-repo/hilife_door",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/your-repo/hilife_door/issues",
+  "requirements": ["requests>=2.25.0"],
+  "version": "1.2.0"
+}
