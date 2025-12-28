@@ -54,9 +54,18 @@ class HiLifeApi:
             if resp.status_code == 200:
                 data = resp.json()
                 self.access_token = data.get("access_token")
-                # Auto-detect user_id (openID) if not set
+                
+                # Auto-detect user_id if not set
                 if not self.user_id:
-                    self.user_id = data.get("openID")
+                    # First try to get the real personID
+                    person_id = self._get_person_id()
+                    if person_id:
+                        self.user_id = person_id
+                        _LOGGER.info("Auto-detected personID: %s", person_id)
+                    else:
+                        # Fallback to openID
+                        self.user_id = data.get("openID")
+                        _LOGGER.warning("Could not get personID, using openID: %s", self.user_id)
                 
                 if self.access_token:
                     _LOGGER.debug("Login successful. User ID: %s", self.user_id)
@@ -68,6 +77,41 @@ class HiLifeApi:
         except Exception as e:
             _LOGGER.error("Login error: %s", e)
             return False
+    
+    def _get_person_id(self) -> Optional[str]:
+        """Get the real personID using access token."""
+        try:
+            # Use the getPersonInfo API to get the real personID
+            url = f"https://www.91helife.com/admin/portal/getPersonInfo?access_token={self.access_token}"
+            
+            resp = self._session.get(
+                url,
+                headers={
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                    "Referer": "https://www.91helife.com/",
+                },
+                timeout=10
+            )
+            
+            if resp.status_code == 200:
+                result = resp.json()
+                
+                # Check multiple possible locations for personID
+                if 'data' in result and 'personInfo' in result['data']:
+                    person_info = result['data']['personInfo']
+                    if 'personID' in person_info:
+                        return person_info['personID']
+                elif 'data' in result and 'personID' in result['data']:
+                    return result['data']['personID']
+                elif 'personInfo' in result and 'personID' in result['personInfo']:
+                    return result['personInfo']['personID']
+                
+                _LOGGER.debug("PersonID not found in response: %s", result)
+            
+        except Exception as e:
+            _LOGGER.error("Error getting personID: %s", e)
+        
+        return None
 
     def get_communities(self) -> list:
         """Get list of communities (from card info)."""
